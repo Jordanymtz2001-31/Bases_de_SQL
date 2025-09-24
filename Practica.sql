@@ -299,8 +299,31 @@ UNION --El UNION funciona para unir dos consultas
 SELECT FirstName, Rewars as recompesas, Month FROM Rewards LEFT JOIN Employees
 				ON Rewards.EmployeeID = Employees.EmployeeID
 				
+-----------------------INDICES--------------------------
 
+--Con el index lo que hace es hacer las busquedas mas rapidas
+CREATE INDEX name on Employees (FirstName,LastName)
 
+--Con el UNIQUE INDEX hace que el nombre y el apellido no se repitan, si pero debe se ser diferente uno del otro
+CREATE UNIQUE INDEX Apellido on Employees (FirstName,LastName)
+SELECT * FROM Employees
 
+--Para eliminar los indices ocupamos DROP
+DROP INDEX name
+DROP INDEX Apellido
 
+------------------------------------VISTAS---------------------------------------
+---Hcemos una consulta y de ahi creamos una vista
+CREATE VIEW Productos_simplificados AS
+
+SELECT ProductID, ProductName, Price FROM Products
+WHERE ProductID <20
+ORDER by ProductID DESC
+
+SELECT * FROM Productos_simplificados
+
+--Para eliminar una vista es con DROP o IF EXISTS
+
+DROP VIEW Productos_simplificados
+DROP VIEW IF EXISTS Productos_simplificados --Hace dos pasos y ocupa mas rendimiento, primero verifica si existe la vista
 
