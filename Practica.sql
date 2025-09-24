@@ -327,3 +327,13 @@ SELECT * FROM Productos_simplificados
 DROP VIEW Productos_simplificados
 DROP VIEW IF EXISTS Productos_simplificados --Hace dos pasos y ocupa mas rendimiento, primero verifica si existe la vista
 
+--Ejercicio de mostrarme los mejores empleados que recaudaron mas dinero
+SELECT FirstName, LastName, sum(Quantity) as Cantidad_Vedida, Price,
+							sum(Quantity) * Price as Cantidad_recaudada
+							FROM Employees as Emp
+							INNER JOIN Orders as O ON Emp.EmployeeID = O.EmployeeID
+							INNER JOIN OrderDetails as OD ON OD.OrderID = O.OrderID
+							INNER JOIN Products as P ON P.ProductID = OD.ProductID
+							GROUP By Emp.EmployeeID
+							ORDER BY Cantidad_recaudada DESC
+
